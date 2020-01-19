@@ -144,7 +144,7 @@ YACC := $(shell echo "$${YACC}")
 
 # find compiler name & version
 ifeq ($(CC),)
- 	CC=gcc
+	CC=gcc
 endif
 LD= $(CC)
 CC_LONGVER=$(shell if  $(CC) -v 2>/dev/null; then \
@@ -171,7 +171,7 @@ else ifneq (,$(findstring gcc, $(CC_LONGVER)))
 	CC_NAME=gcc
 	CC_VER=$(word 1,$(CC)) $(shell $(CC) - -dumpversion|head -n 1|cut -d" " -f 3|\
 			 sed -e 's/^.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/' \
-			 	 -e 's/^[^0-9].*\([0-9][0-9]*\.[0-9][0-9]*\).*/\1/')
+				 -e 's/^[^0-9].*\([0-9][0-9]*\.[0-9][0-9]*\).*/\1/')
 	# sun sed is a little brain damaged => this complicated expression
 	MKDEP=$(CC) -MM
 	CC_SHORTVER=$(shell echo "$(CC_VER)" | cut -d" " -f 2| \
@@ -449,7 +449,7 @@ TAR ?= tar
 endif
 
 INSTALL_TOUCH = touch          # used to create the file first (good to
-                               #  make solaris install work)
+			       #  make solaris install work)
 INSTALL_CFG = $(INSTALL) -m 644
 INSTALL_BIN = $(INSTALL) -m 755
 INSTALL_MODULES = $(INSTALL) -m 755
@@ -459,7 +459,7 @@ INSTALL_MAN = $(INSTALL) -m 644
 
 ifeq ($(VERSIONTYPE),)
 VERSIONTYPE = $(shell if [ -d ".svn" ]; then \
-			  		echo "svn"; \
+					echo "svn"; \
 				elif [ -d ".git" ]; then \
 					echo "git"; \
 				fi )
@@ -536,6 +536,8 @@ endif
 #DBHTMLXSL = /usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl
 # On CentOS, this is the right path:
 #DBHTMLXSL = /usr/share/sgml/docbook/xsl-stylesheets/xhtml/docbook.xsl
+# On Arch-Linux
+#DBHTMLXSL = /usr/share/xml/docbook/xsl-stylesheets-1.79.2/xhtml5/docbook.xsl
 
 DBHTMLXSL ?= /usr/share/xml/docbook/xsl-stylesheets-1.79.2-nons/xhtml/docbook.xsl
 ifeq ($(DBHTMLCSS),)
@@ -544,6 +546,8 @@ DBHTMLXSL=$(shell \
 		echo "/usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl"; \
 	elif [ -e /usr/share/sgml/docbook/xsl-stylesheets/xhtml/docbook.xsl ]; then \
 		echo "/usr/share/sgml/docbook/xsl-stylesheets/xhtml/docbook.xsl"; \
+	elif [ -e /usr/share/xml/docbook/xsl-stylesheets-1.79.2/xhtml5/docbook.xsl ]; then \
+		echo "/usr/share/xml/docbook/xsl-stylesheets-1.79.2/xhtml5/docbook.xsl"; \
 	elif [ -e /usr/share/xml/docbook/xsl-stylesheets*/xhtml/docbook.xsl ]; then \
 		ls -1 /usr/share/xml/docbook/xsl-stylesheets*/xhtml/docbook.xsl; \
 	fi)
@@ -717,7 +721,7 @@ ifeq ($(ARCH), x86_64)
 endif
 
 ifeq ($(ARCH), sparc64)
-ifeq 	($(CC_NAME), gcc)
+ifeq	($(CC_NAME), gcc)
 	use_fast_lock=yes
 endif
 endif
@@ -759,11 +763,11 @@ ifeq ($(ARCH), mips2)
 endif
 
 ifeq ($(ARCH), mips32)
-        use_fast_lock=yes
+	use_fast_lock=yes
 endif
 
 ifeq ($(ARCH), mips64)
-        use_fast_lock=yes
+	use_fast_lock=yes
 endif
 
 ifeq ($(ARCH), alpha)
@@ -792,8 +796,8 @@ else
 	found_lock_method=yes
 endif
 else
-        ## USE_UMUTEX was manually forced from .conf
-        found_lock_method=yes
+	## USE_UMUTEX was manually forced from .conf
+	found_lock_method=yes
 endif
 
 CFLAGS=$(shell echo "$${CFLAGS}")
@@ -835,7 +839,7 @@ ifeq		($(CC_NAME), gcc)
 			#if gcc 4.0+
 ifeq			($(CC_CLASS), 4.x)
 					ARCH_VER=$(shell $(GETARCH))
-ifeq 				($(ARCH_VER), i386)
+ifeq				($(ARCH_VER), i386)
 						CPU_TYPE ?= i686
 else
 						CPU_TYPE ?= prescott
@@ -859,7 +863,7 @@ else
 endif
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
 					for better results)
 
 					CFLAGS+=-m486 \
@@ -891,7 +895,7 @@ ifeq		($(CC_NAME), clang)
 			CFLAGS+=$(CC_OPTIMIZE_FLAG) -Wall -funroll-loops
 else
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, clang
 endif		#CC_NAME, suncc
 endif		#CC_NAME, icc
@@ -926,7 +930,7 @@ ifeq			($(CC_CLASS), 3.x)
 							-mtune=$(CPU_TYPE)
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
 					for better results)
 
 					CFLAGS+=-m486 \
@@ -958,7 +962,7 @@ ifeq		($(CC_NAME), clang)
 			CFLAGS+=$(CC_OPTIMIZE_FLAG) -Wall -funroll-loops
 else
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, clang
 endif		#CC_NAME, icc
 endif		#CC_NAME, gcc
@@ -1070,7 +1074,7 @@ ifeq			($(CC_CLASS), 3.x)
 
 else			# CC_CLASS, 3.0
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc >= 3.1 \
 					for better results)
 ifneq				($(OS), netbsd)
 						# on netbsd/sparc64,  gcc 2.95.3 does not compile
@@ -1101,7 +1105,7 @@ ifeq		($(CC_NAME), suncc)
 			# -Dinline="" # add this if cc < 5.3 (define inline as null)
 else
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, suncc
 endif		#CC_NAME, gcc
 endif	#ARCH, sparc64
@@ -1122,7 +1126,7 @@ ifeq			($(CC_CLASS), 3.x)
 					CFLAGS+= -mcpu=strongarm1100
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 
 					CFLAGS+=
@@ -1137,7 +1141,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, arm
 
@@ -1159,7 +1163,7 @@ ifeq			($(CC_CLASS), 3.x)
 							#-mcpu=athlon
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 
 					CFLAGS+=-mcpu=r3000
@@ -1174,7 +1178,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, mips
 
@@ -1194,7 +1198,7 @@ ifeq			($(CC_CLASS), 3.x)
 					CFLAGS+=
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 					CFLAGS+=
 else
@@ -1208,7 +1212,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, mips2
 
@@ -1227,7 +1231,7 @@ ifeq			($(CC_CLASS), 3.x)
 					CFLAGS+=
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 					CFLAGS+=
 else
@@ -1241,7 +1245,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, alpha
 
@@ -1262,7 +1266,7 @@ ifeq			($(CC_CLASS), 3.x)
 					CFLAGS+=
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 					CFLAGS+=
 else
@@ -1276,7 +1280,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, ppc
 
@@ -1296,7 +1300,7 @@ ifeq			($(CC_CLASS), 3.x)
 					CFLAGS+=
 else
 ifeq			($(CC_CLASS), 2.9x) #older gcc version (2.9[1-5])
-$(warning 			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
+$(warning			Old gcc detected ($(CC_SHORTVER)), use  gcc 3.0.x \
 					for better results)
 					CFLAGS+=
 else
@@ -1310,7 +1314,7 @@ endif			# CC_CLASS, 4.x
 
 else		# CC_NAME, gcc
 				#other compilers
-$(error 			Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
+$(error				Unsupported compiler ($(CC):$(CC_NAME)), try gcc)
 endif		#CC_NAME, gcc
 endif	#ARCH, ppc
 
