@@ -1,0 +1,11 @@
+* Sun Mar 29 2020 Ralf Zerres <ralf.zerres.de@gmail.com> - 3.0.2-1
+- Initial version
+- Create a package for base engine (opensips)
+- Create a package for base modules (opensips-modules)
+- Create packages for database modules (db_berkeley, db_flatstore, db_http, db_mysql, db_oracle, db_perlvdb,
+  db_postgresql, db_sqlite, db_text, db_unixodbc, db_virtual)
+- Create a package for caching-db modules (cachedb_cassandra, cachedb_couchbase, cachedb_local, cachedb_memcached,
+  cachedb_mongodb, cachedb_redis, cachedb_sql)
+- Create a package for presence modules (presence, presence_dialoginfo, presence_xml, presence_mwi, presence_xcapdiff,
+  pua, pua_bla, pua_dialoginfo, pua_mi, pua_usrloc, pua_xmpp, rls, xcap, xcap_client)
+- Create a package for B2B User-Agent modules (b2b_entities,b2b_logic)
