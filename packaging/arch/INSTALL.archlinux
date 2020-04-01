@@ -1,0 +1,35 @@
+archlinux specific
+-------------------
+
+
+Structure
+---------
+
+OpenSIPS suite is build as a modular system.
+This packages just includes the core functionality and the parser.
+
+All sophisticated SIP packet handling is provided through dedicated modules and its usage will vary
+in every installation. Please select and install from the supported 'opensips-modules' packages and adapt
+the configuration to your individual needs.
+You are encouraged to make use of your prefered database. Interaction will be provided via the corresponding
+opensip-module-<database> package. This package will in turn pull in the dependend base packages.
+
+The complete documentation is provided via the 'opensips-documentation' package.
+Beside html-, and text files you will find example configurations explaining the integration of available modules.
+
+Since version 3.0 OpenSIPS is managed either via a python commandline tool 'opensips-cli'
+or via the web-frontend 'opensips-cp'. Both packages may be installed side by side.
+
+
+Database preparation
+--------------------
+
+To create a the table structure for an 'opensips' database, following actions need to be performed:
+
+1) install the prefered database backend
+   eg for MySQL:      'pacman -S opensips-module-mysql'
+   eg for PostgreSQL: 'pacman -S opensips-module-postgresql'
+   eg for SQlite:     'pacman -S opensips-module-sqlite'
+2) adapt the default configruation file (/etc/opensip/opensip-cli.conf)
+3) create database 'opensips'
+   'opensips-cli -x database create'
